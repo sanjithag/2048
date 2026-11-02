@@ -1,0 +1,147 @@
+/* Enchanted garden skin. Board geometry and movement live in main.css. */
+:root { --moss: #465e3c; --muted: #7c8370; --gold: #b49a57; }
+html, body { background: #f6f5eb; color: var(--moss); font-family: "Clear Sans", sans-serif; }
+body { margin: 0; padding: 0 24px; background-image: radial-gradient(ellipse at 7% 36%, #dfe9d580, transparent 34%), radial-gradient(ellipse at 94% 66%, #e5dcf080, transparent 34%); min-height: 100vh; }
+.site-header { max-width: 1120px; margin: auto; padding: 27px 0 22px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #576a3e20; }
+.wordmark { text-decoration: none; font-family: Georgia, serif; font-size: 23px; font-weight: normal; letter-spacing: -.6px; }
+.wordmark span { color: var(--gold); margin-right: 8px; font-size: 30px; vertical-align: middle; }
+.header-note { color: #8b907c; font-size: 12px; letter-spacing: 1.8px; }
+main { position: relative; padding-top: 35px; }
+.garden-label { display: flex; align-items: center; justify-content: center; gap: 13px; font-size: 10px; letter-spacing: 2.3px; color: #859074; }
+.garden-label span { width: 32px; height: 1px; background: #b6bf9d; }
+.container { width: 500px; }
+.heading { text-align: center; }
+.title-group { position: relative; padding-top: 13px; }
+.fairy-emblem { width: 86px; height: 72px; margin: 0 auto -2px; }
+.fairy-emblem svg { width: 100%; height: 100%; }
+h1.title { float: none; display: inline-block; font-family: Georgia, "Times New Roman", serif; font-weight: normal; font-size: 69px; letter-spacing: -3px; line-height: 1.15; }
+h1.title span { font-style: italic; color: #829361; }
+h1.title sup { color: #b59b58; font-size: 27px; display: inline-block; vertical-align: top; padding-top: 9px; margin-left: 5px; }
+.tagline { font-family: Georgia, serif; font-style: italic; color: #8a8b76; font-size: 15px; margin: 12px 0 29px; }
+.play-toolbar { display: flex; justify-content: space-between; align-items: center; }
+.scores-container { float: none; display: flex; gap: 9px; }
+.score-container, .best-container { margin: 0; min-width: 64px; padding: 22px 13px 6px; height: 29px; line-height: 29px; font-size: 24px; background: #e9ecdf; color: #526743; border: 1px solid #dce1ce; border-radius: 9px; font-family: Georgia, serif; font-weight: normal; }
+.best-container { background: #eee9f2; color: #82718e; border-color: #e1d9e7; }
+.score-container:after, .best-container:after { top: 9px; font-family: "Clear Sans", sans-serif; font-size: 9px; letter-spacing: 1.7px; color: #7c896d; }
+.best-container:after { content: "Best spell"; color: #9989a4; }
+.score-container:after { content: "Score"; }
+.score-container .score-addition { color: #8e985a; }
+button { font: inherit; cursor: pointer; }
+.restart-button { float: none; display: inline-flex; gap: 9px; align-items: center; justify-content: center; background: #536b44; border: 1px solid #536b44; box-shadow: 0 3px 8px #40573016; border-radius: 7px; color: #fffdf3; font-size: 12px; letter-spacing: .3px; height: 43px; padding: 0 17px; transition: background .2s, transform .2s; }
+.restart-button span { font-size: 21px; font-weight: normal; }
+.restart-button:hover { background: #647f52; transform: translateY(-1px); }
+button:focus-visible, a:focus-visible { outline: 3px solid #ae8fc0; outline-offset: 5px; }
+.above-game { text-align: center; }
+.game-intro { float: none; font-size: 12px; color: #858b78; line-height: 1.5; margin: 21px 0 14px; }
+.board-wrap { position: relative; }
+.game-container { margin: 0; border-radius: 14px; background: #d8dfc9; box-shadow: 0 0 0 1px #c4cfb2, 0 0 0 7px #ebeee1, 0 0 0 8px #d9dfcb, 0 16px 35px #576a3e13; }
+.grid-cell { background: #eef0e4; border-radius: 8px; box-shadow: inset 0 1px 3px #56703d05; }
+.tile .tile-inner { border-radius: 8px; font-family: Georgia, serif; font-weight: normal; font-size: 49px; color: #566a42; background: #e7edcf; box-shadow: inset 0 0 0 1px #ffffff70, 0 2px 3px #566a4210; }
+.tile.tile-2 .tile-inner { color: #62754e; background: #e5ebce; box-shadow: inset 0 0 0 1px #f9fbe9; }
+.tile.tile-4 .tile-inner { color: #8a729b; background: #e8dff1; box-shadow: inset 0 0 0 1px #f4eefa; }
+.tile.tile-8 .tile-inner { color: #9b7d43; background: #f2e6bd; }
+.tile.tile-16 .tile-inner { color: #996f77; background: #edd6d9; }
+.tile.tile-32 .tile-inner { color: #507c72; background: #cbe4d8; }
+.tile.tile-64 .tile-inner { color: #faf7e9; background: #8ea371; }
+.tile.tile-128 .tile-inner { color: #fff9f0; background: #ac93bc; font-size: 40px; }
+.tile.tile-256 .tile-inner { color: #fffdf2; background: #bba15e; font-size: 40px; }
+.tile.tile-512 .tile-inner { color: #fffdf2; background: #73978a; font-size: 40px; }
+.tile.tile-1024 .tile-inner { color: #fffdf2; background: #8c78a4; font-size: 33px; }
+.tile.tile-2048 .tile-inner { color: #fffdf2; background: #b49b46; font-size: 33px; box-shadow: 0 0 28px #e4cd7b99, inset 0 0 0 1px #f8e5a8; }
+.tile.tile-super .tile-inner { background: #536b44; color: #fffdf2; }
+.tile-merged .tile-inner:after { content: "✧"; position: absolute; right: 6px; top: -37px; color: #baa358; font-size: 25px; pointer-events: none; animation: dust-bloom .7s ease-out both; }
+.board-star { position: absolute; color: #b9a66c; pointer-events: none; }
+.star-one { left: -42px; top: 53px; font-size: 37px; transform: rotate(-12deg); }
+.star-two { right: -32px; bottom: 49px; font-size: 23px; }
+.board-caption { text-align: center; font: italic 13px Georgia, serif; color: #989477; margin: 24px 0 0; }
+.board-caption span { color: #b59e5b; padding: 0 10px; }
+.game-explanation { margin-top: 28px; padding: 23px 0; border-top: 1px solid #dce0cf; text-align: center; }
+.game-explanation h2 { font: normal 23px Georgia, serif; margin: 0 0 10px; }
+.game-explanation p { font-size: 12px; color: #8a8e7d; line-height: 1.9; margin-bottom: 14px; }
+.game-explanation strong { color: #667951; font-weight: normal; }
+.key-hint { display: flex; justify-content: center; align-items: center; gap: 4px; }
+kbd { width: 23px; height: 23px; line-height: 23px; border: 1px solid #d9ddcd; border-bottom-width: 2px; border-radius: 4px; color: #859174; font-family: inherit; font-size: 13px; }
+.key-hint span { margin-left: 8px; font-size: 10px; color: #969b89; }
+.site-footer { border-top: 1px solid #dce0cf; padding: 21px 0 25px; text-align: center; }
+.site-footer p { font-size: 11px; letter-spacing: .5px; color: #939781; margin-bottom: 5px; }
+.site-footer p span { color: #b39b59; margin-left: 5px; }
+.site-footer .credits { font-size: 9px; letter-spacing: 0; color: #a1a48f; }
+.credits a { font-weight: normal; color: inherit; text-underline-offset: 3px; }
+.game-container .game-message { background: #f5f4e5e8; border-radius: 14px; backdrop-filter: blur(5px); }
+.game-container .game-message.game-won { background: #ede7cce8; color: #667443; }
+.game-container .game-message p { font: normal 42px Georgia, serif; margin-top: 180px; }
+.game-container .game-message .lower { margin-top: 25px; }
+.game-container .game-message button { border: 0; background: #536b44; color: #fffdf3; padding: 12px 17px; border-radius: 6px; margin: 4px; font-size: 13px; }
+.keep-playing-button { display: none; }
+.game-won .keep-playing-button { display: inline-block; }
+.fairy-dust { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.fairy-dust i { position: absolute; color: #c1ad6d; font-style: normal; animation: twinkle 6s ease-in-out infinite; }
+.fairy-dust i:nth-child(1) { left: 14%; top: 27%; font-size: 18px; }
+.fairy-dust i:nth-child(2) { left: 23%; top: 57%; animation-delay: -2s; font-size: 25px; }
+.fairy-dust i:nth-child(3) { right: 16%; top: 34%; animation-delay: -4s; font-size: 12px; }
+.fairy-dust i:nth-child(4) { right: 9%; top: 72%; animation-delay: -1s; font-size: 29px; }
+.fairy-dust i:nth-child(5) { left: 9%; top: 83%; animation-delay: -3s; font-size: 10px; }
+.fairy-dust i:nth-child(6) { right: 27%; top: 18%; animation-delay: -5s; font-size: 16px; }
+.fairy-dust i:nth-child(7) { left: 30%; top: 39%; animation-delay: -2s; font-size: 8px; }
+.fairy-dust i:nth-child(8) { right: 23%; top: 89%; animation-delay: -4s; font-size: 14px; }
+@keyframes twinkle { 0%, 100% { opacity: .2; transform: translateY(0) rotate(0); } 50% { opacity: .8; transform: translateY(-12px) rotate(15deg); } }
+@keyframes dust-bloom { from { opacity: 1; transform: translateY(10px) scale(.5); } to { opacity: 0; transform: translateY(-18px) scale(1.3); } }
+@media (max-width: 600px) { .header-note { font-size: 9px; letter-spacing: .6px; } .site-header { padding: 16px 0; } .wordmark { font-size: 20px; } main { padding-top: 25px; } .garden-label { font-size: 8px; letter-spacing: 1.4px; gap: 8px; } .garden-label span { width: 15px; } .board-star { display: none; } }
+@media (max-width: 520px) { body { padding: 0 20px; margin: 0; } .container { width: 280px; } h1.title { font-size: 51px; margin: 0; letter-spacing: -2px; } .fairy-emblem { width: 72px; height: 60px; } .tagline { font-size: 11px; margin: 10px -8px 23px; } .heading { margin-bottom: 0; } .score-container, .best-container { min-width: 39px; padding: 20px 8px 4px; font-size: 21px; height: 25px; line-height: 25px; } .score-container:after, .best-container:after { font-size: 8px; letter-spacing: 1px; top: 8px; } .scores-container { gap: 6px; } .restart-button { width: auto; padding: 0 10px; font-size: 10px; gap: 5px; height: 39px; margin: 0; } .game-intro { width: 100%; font-size: 10px; margin: 18px 0 13px; } .game-container { margin-top: 0; } .tile .tile-inner { font-size: 32px; } .tile.tile-128 .tile-inner, .tile.tile-256 .tile-inner, .tile.tile-512 .tile-inner { font-size: 25px; } .tile.tile-1024 .tile-inner, .tile.tile-2048 .tile-inner { font-size: 21px; } .tile.tile-super .tile-inner { font-size: 18px; } .board-caption { font-size: 10px; margin-top: 21px; } .board-caption span { padding: 0 4px; } .game-explanation { margin-top: 22px; padding: 20px 0; } .game-explanation h2 { font-size: 21px; } .game-explanation p { font-size: 11px; } .key-hint span { font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation: none !important; transition: none !important; } }
+
+/* Pastel sky and wandering garden fairies. */
+html { background: #fbf5fa; }
+body { background-color: #fbf7f2; background-image: radial-gradient(ellipse at 5% 20%, #f4dcefaa, transparent 42%), radial-gradient(ellipse at 94% 35%, #ded9f5aa, transparent 42%), radial-gradient(ellipse at 12% 85%, #d8eee3aa, transparent 40%), radial-gradient(ellipse at 90% 94%, #fff0cdaa, transparent 40%); }
+.site-header, main { position: relative; z-index: 1; }
+.fairy-dust { z-index: 0; }
+.game-container { background: #e3ddec; box-shadow: 0 0 0 1px #d6cce2, 0 0 0 7px #f5edf7, 0 0 0 8px #e4d9eb, 0 16px 35px #9a7fa71a; }
+.grid-cell { background: #f6f0f8; }
+.score-container { background: #e6f1e5; border-color: #d3e4d0; }
+.best-container { background: #f2e5f3; border-color: #e7d5ea; }
+.restart-button { background: #e3ebd5; border-color: #c8d6b6; color: #526743; }
+.restart-button:hover { background: #d4e3c5; }
+.tile.tile-2 .tile-inner { background: #e3f0d8; }
+.tile.tile-4 .tile-inner { background: #eddef5; }
+.tile.tile-8 .tile-inner { background: #fbefc7; }
+.tile.tile-16 .tile-inner { background: #f5dae4; }
+.tile.tile-32 .tile-inner { background: #d7eee6; }
+.tile.tile-64 .tile-inner { background: #cbdff1; color: #526d8a; }
+.tile.tile-128 .tile-inner { background: #dbc8ed; color: #715887; }
+.tile.tile-256 .tile-inner { background: #f1d3b5; color: #89643d; }
+.tile.tile-512 .tile-inner { background: #bcded4; color: #446f63; }
+.tile.tile-1024 .tile-inner { background: #cfbfe5; color: #65517d; }
+.tile.tile-2048 .tile-inner { background: #f1dfa0; color: #846b2f; }
+.fairy-garden { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.flying-fairy { position: absolute; width: 100px; color: #b3a1c7; --wing: #e9dff4b3; --dress: #b5cfa0; opacity: .8; filter: drop-shadow(0 0 13px #fff6c9); animation: fairy-wander 24s ease-in-out infinite; will-change: transform; }
+.flying-fairy svg { width: 100%; height: auto; overflow: visible; }
+.flutter-wings { transform-origin: 60px 70px; animation: wing-flutter 1.2s ease-in-out infinite alternate; }
+.fairy-1 { left: 5%; top: 19%; animation-delay: -4s; }
+.fairy-2 { right: 8%; top: 12%; width: 80px; --dress: #d5b0d3; --wing: #e1eaf6b3; animation-delay: -12s; animation-duration: 29s; }
+.fairy-3 { left: 17%; top: 59%; width: 72px; --dress: #a9cbd6; --wing: #f8e4eeb3; animation-delay: -19s; animation-duration: 27s; }
+.fairy-4 { right: 4%; top: 62%; width: 110px; --dress: #c9b4df; --wing: #d9eee3b3; animation-delay: -8s; animation-duration: 31s; }
+.fairy-5 { left: 3%; top: 85%; width: 60px; --dress: #e4bfab; --wing: #e4dff4b3; animation-delay: -15s; animation-duration: 26s; }
+.fairy-6 { right: 21%; top: 85%; width: 65px; --dress: #c4cf99; --wing: #faeccfb3; animation-delay: -2s; animation-duration: 28s; }
+@keyframes fairy-wander {
+  0%, 100% { transform: translate(0, 0) rotate(-8deg); }
+  25% { transform: translate(38px, -60px) rotate(7deg); }
+  50% { transform: translate(-18px, -95px) rotate(-3deg); }
+  75% { transform: translate(-35px, -32px) rotate(9deg); }
+}
+@keyframes wing-flutter { from { transform: scaleX(.72) rotate(-3deg); } to { transform: scaleX(1) rotate(3deg); } }
+@media (max-width: 760px) { .flying-fairy { opacity: .4; width: 65px; } .fairy-1, .fairy-3, .fairy-5 { left: -25px; } .fairy-2, .fairy-4, .fairy-6 { right: -25px; } }
+@media (prefers-reduced-motion: reduce) { .flying-fairy, .flutter-wings { animation: none !important; will-change: auto; } }
+
+/* Staggered negative delays keep the golden shower continuous from first paint. */
+.pixie-rain { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 2; }
+.pixie-rain i { position: absolute; top: -20px; left: var(--x); width: var(--size); height: var(--size); border-radius: 50%; background: #e6bd51; box-shadow: 0 0 5px #f2d577, 0 0 11px #f5d56a80; opacity: 0; animation: pixie-fall var(--fall) linear var(--delay) infinite; }
+.pixie-rain i:nth-child(4n) { border-radius: 0; background: #dbac38; clip-path: polygon(50% 0, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0 50%, 39% 38%); width: calc(var(--size) + 5px); height: calc(var(--size) + 5px); }
+@keyframes pixie-fall {
+  0% { transform: translate3d(0, -10px, 0) rotate(0); opacity: 0; }
+  8% { opacity: .75; }
+  45% { opacity: .35; }
+  65% { opacity: .8; }
+  92% { opacity: .6; }
+  100% { transform: translate3d(var(--drift), calc(100vh + 40px), 0) rotate(300deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pixie-rain { display: none; } }
